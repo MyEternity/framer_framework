@@ -2,11 +2,11 @@ from views import Main, Info, Contacts
 
 
 def data(request):
-    request['data'] = 123
+    request['data'] = {}
 
 
 def key(request):
-    request['key'] = '123'
+    request['key'] = ''
 
 
 fronts = [data, key]

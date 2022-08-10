@@ -8,6 +8,7 @@ class Main:
 
 class Info:
     def __call__(self, request):
+        print(request.get('data', {}))
         return '200 OK', render('info.html', data=request.get('data', None))
 
 
