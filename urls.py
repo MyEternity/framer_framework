@@ -1,4 +1,4 @@
-from views import Main, Info, Contacts
+from views import Main, Info, Contacts, About
 
 
 def data(request):
@@ -15,4 +15,5 @@ routes = {
     '/': Main(),
     '/info/': Info(),
     '/contacts/': Contacts(),
+    '/about/': About(),
 }

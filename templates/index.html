@@ -1,8 +1,14 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <title>Тестовый фреймворк</title>
-<body>
-<h1>Главная страница</h1>
-</body>
-</html>
+﻿{% extends "base.html" %}
+{% block title %}
+Framer
+{% endblock %}
+{% block style %}
+{% include "style.html" %}
+{% endblock %}
+{% block menu %}
+{% include "menu.html" %}
+{% endblock %}
+
+{% block body %}
+<h4>Главная страница</h4>
+{% endblock %}
