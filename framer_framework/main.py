@@ -1,6 +1,6 @@
 import quopri
 
-from .pr_requests import GetRequest, PostRequest
+from framer_framework.pr_requests import GetRequest, PostRequest
 
 
 class NotFound404:
