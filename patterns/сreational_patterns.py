@@ -1,10 +1,9 @@
 import copy
 import quopri
-# from architectural_system_pattern_mappers import StudentMapper
 import sqlite3
 
-from .architectural_system_pattern_unit_of_work import DomainObject
-from .behavioral_patterns import ConsoleWriter, Subject
+from patterns.architectural_system_pattern_unit_of_work import DomainObject
+from patterns.behavioral_patterns import ConsoleWriter, Subject
 
 
 class User:

@@ -1,4 +1,4 @@
-from сreational_patterns import Student
+from patterns.сreational_patterns import Student
 
 
 class StudentMapper:
