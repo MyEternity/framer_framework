@@ -4,11 +4,13 @@ from framer_framework.templator import render
 
 
 class Observer:
+
     def update(self, subject):
         pass
 
 
 class Subject:
+
     def __init__(self):
         self.observers = []
 
@@ -18,16 +20,19 @@ class Subject:
 
 
 class SmsNotifier(Observer):
+
     def update(self, subject):
         print('SMS->', 'к нам присоединился', subject.students[-1].name)
 
 
 class EmailNotifier(Observer):
+
     def update(self, subject):
         print(('EMAIL->', 'к нам присоединился', subject.students[-1].name))
 
 
 class BaseSerializer:
+
     def __init__(self, obj):
         self.obj = obj
 
