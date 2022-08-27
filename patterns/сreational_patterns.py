@@ -2,38 +2,30 @@ import copy
 import quopri
 
 
-# абстрактный пользователь
 class User:
     pass
 
 
-# преподаватель
 class Teacher(User):
     pass
 
 
-# студент
 class Student(User):
     pass
 
 
-# порождающий паттерн Абстрактная фабрика - фабрика пользователей
 class UserFactory:
     types = {
         'student': Student,
         'teacher': Teacher
     }
 
-    # порождающий паттерн Фабричный метод
     @classmethod
     def create(cls, type_):
         return cls.types[type_]()
 
 
-# порождающий паттерн Прототип - Курс
 class CoursePrototype:
-    # прототип курсов обучения
-
     def clone(self):
         return copy.deepcopy(self)
 
@@ -46,17 +38,14 @@ class Course(CoursePrototype):
         self.category.courses.append(self)
 
 
-# Интерактивный курс
 class InteractiveCourse(Course):
     pass
 
 
-# Курс в записи
 class RecordCourse(Course):
     pass
 
 
-# Категория
 class Category:
     # реестр?
     auto_id = 0
@@ -75,20 +64,17 @@ class Category:
         return result
 
 
-# порождающий паттерн Абстрактная фабрика - фабрика курсов
 class CourseFactory:
     types = {
         'interactive': InteractiveCourse,
         'record': RecordCourse
     }
 
-    # порождающий паттерн Фабричный метод
     @classmethod
     def create(cls, type_, name, category):
         return cls.types[type_](name, category)
 
 
-# Основной интерфейс проекта
 class Engine:
     def __init__(self):
         self.teachers = []
@@ -128,7 +114,6 @@ class Engine:
         return val_decode_str.decode('UTF-8')
 
 
-# порождающий паттерн Синглтон
 class SingletonByName(type):
 
     def __init__(cls, name, bases, attrs, **kwargs):
@@ -140,7 +125,6 @@ class SingletonByName(type):
             name = args[0]
         if kwargs:
             name = kwargs['name']
-
         if name in cls.__instance:
             return cls.__instance[name]
         else:
@@ -149,7 +133,6 @@ class SingletonByName(type):
 
 
 class Logger(metaclass=SingletonByName):
-
     def __init__(self, name):
         self.name = name
 

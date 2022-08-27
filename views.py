@@ -1,38 +1,47 @@
 from datetime import date
 
 from framer_framework.templator import render
+from patterns.structural_patterns import AppRoute, Debug
 from patterns.сreational_patterns import Engine, Logger
 
 site = Engine()
 logger = Logger('main')
+routes = {}
 
 
+@AppRoute(routes=routes, url='/')
 class Main:
     def __call__(self, request):
         return '200 OK', render('index.html', objects=site.categories)
 
 
+@Debug
+@AppRoute(routes=routes, url='/info/')
 class Info:
     def __call__(self, request):
         print(request.get('data', {}))
         return '200 OK', render('info.html', data=request.get('data', None))
 
 
+@AppRoute(routes=routes, url='/contacts/')
 class Contacts:
     def __call__(self, request):
         return '200 OK', render('contacts.html', data=request.get('data', None))
 
 
+@AppRoute(routes=routes, url='/about/')
 class About:
     def __call__(self, request):
         return '200 OK', render('about.html', data=request.get('data', None))
 
 
+@AppRoute(routes=routes, url='/study_programs/')
 class StudyPrograms:
     def __call__(self, request):
         return '200 OK', render('study-programs.html', data=date.today())
 
 
+@AppRoute(routes=routes, url='/courses-list/')
 class CoursesList:
     def __call__(self, request):
         logger.log('Список курсов')
@@ -43,6 +52,7 @@ class CoursesList:
             return '200 OK', 'No courses have been added yet'
 
 
+@AppRoute(routes=routes, url='/create-course/')
 class CreateCourse:
     category_id = -1
 
@@ -67,6 +77,7 @@ class CreateCourse:
                 return '200 OK', 'No categories have been added yet'
 
 
+@AppRoute(routes=routes, url='/create-category/')
 class CreateCategory:
     def __call__(self, request):
         if request['method'] == 'POST':
@@ -86,12 +97,14 @@ class CreateCategory:
             return '200 OK', render('create_category.html', categories=categories)
 
 
+@AppRoute(routes=routes, url='/category-list/')
 class CategoryList:
     def __call__(self, request):
         logger.log('Список категорий')
         return '200 OK', render('category_list.html', objects=site.categories)
 
 
+@AppRoute(routes=routes, url='/copy-course/')
 class CopyCourse:
     def __call__(self, request):
         request_params = request['request_params']
