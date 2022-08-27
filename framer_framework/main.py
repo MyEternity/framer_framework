@@ -1,6 +1,6 @@
 import quopri
 
-from requests import GetRequest, PostRequest
+from .pr_requests import GetRequest, PostRequest
 
 
 class NotFound404:
