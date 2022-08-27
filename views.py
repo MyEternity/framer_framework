@@ -1,13 +1,18 @@
 from datetime import date
 
 from framer_framework.templator import render
-from patterns.behavioral_patterns import ListView, CreateView, BaseSerializer
+from patterns.architectural_system_pattern_unit_of_work import UnitOfWork
+from patterns.behavioral_patterns import EmailNotifier, SmsNotifier, ListView, CreateView, BaseSerializer
 from patterns.structural_patterns import AppRoute, Debug
-from patterns.сreational_patterns import Engine, Logger
+from patterns.сreational_patterns import Engine, Logger, MapperRegistry
 
 site = Engine()
 logger = Logger('main')
 routes = {}
+email_notifier = EmailNotifier()
+sms_notifier = SmsNotifier()
+UnitOfWork.new_current()
+UnitOfWork.get_current().set_mapper_registry(MapperRegistry)
 
 
 @AppRoute(routes=routes, url='/')
@@ -124,8 +129,11 @@ class CopyCourse:
 
 @AppRoute(routes=routes, url='/student-list/')
 class StudentListView(ListView):
-    queryset = site.students
     template_name = 'student_list.html'
+
+    def get_queryset(self):
+        mapper = MapperRegistry.get_current_mapper('student')
+        return mapper.all()
 
 
 @AppRoute(routes=routes, url='/create-student/')
@@ -137,6 +145,8 @@ class StudentCreateView(CreateView):
         name = site.decode_value(name)
         new_obj = site.create_user('student', name)
         site.students.append(new_obj)
+        new_obj.mark_new()
+        UnitOfWork.get_current().commit()
 
 
 @AppRoute(routes=routes, url='/add-student/')
